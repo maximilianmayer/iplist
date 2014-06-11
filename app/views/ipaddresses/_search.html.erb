@@ -1,0 +1,10 @@
+<% form_tag '/ipaddresses/', :method => 'get' do %>
+  <div class="search_label">ip</div><%= text_field_tag :searchip, params[:searchip], :class => "small_input" %>
+  <div class="search_label">hostname</div><%= text_field_tag :searchdnsname, params[:searchdnsname], :class => "small_input" %>
+  <%= submit_tag "Search", :address => nil %>
+  <div class="notice">INFO: to use wildcards use '%', not '*'!</div>
+  <br />
+  <!-- <div class="notice">Notice: If hostname AND IP is specified, hostname takes precedence!</div> -->
+<% end %>
+
+

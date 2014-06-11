@@ -1,0 +1,40 @@
+<% @title = "create new IP  subnet" %>
+<h2>create new IP subnet</h2>
+<p><%= link_to "back", :action => "listsub" %></p>
+<% form_for :subnet, :url => {:action => "updatesub", :id => @ipsubs.id } do |f| %>
+  <p>
+    <div class="item_label"for="subnet_name">Name</div>
+    <%= f.text_field :name, :value => @ipsubs.name %>
+  </p>
+  <p>
+    <div class="item_label"for="subnet_startip">Start IP</div>
+    <%= f.text_field :ip_start, :value => @ipsubs.ip_start %>
+  </p>
+  <p>
+    <div class="item_label"for="subnet_endip">End IP</div>
+    <%= f.text_field :ip_end, :value => @ipsubs.ip_end %>
+  </p>
+  <p>
+    <div class="item_label"for="subnet_gateway">Gateway</div>
+    <%= f.text_field :gateway, :value => @ipsubs.gateway %>
+  </p>
+  <p>
+    <div class="item_label"for="subnet_mask">Subnet Mask</div>
+    <%= f.text_field :mask, :value => @ipsubs.mask %>
+  </p>
+  <p>
+    <div class="item_label"for="subnet_dhcpstart">DHCP Start IP</div>
+    <%= f.text_field :dhcp_start, :value => @ipsubs.dhcp_start %>
+  </p>
+  <p>
+    <div class="item_label"for="subnet_dhcpend">DHCP End IP</div>
+    <%= f.text_field :dhcp_end, :value => @ipsubs.dhcp_end %>
+  </p>
+  <p>
+    <div class="item_label"for="subnet_location">Location</div>
+    <%= f.text_field :location, :value => @ipsubs.location %>
+  </p>
+  <p> <%= submit_tag "save" %>
+<% end %>
+<p><%= link_to "back", :action => "listsub" %></p>
+
