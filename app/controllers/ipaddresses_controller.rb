@@ -7,7 +7,7 @@ class IpaddressesController < ApplicationController
       @ips = @all_ips
     elsif params[:searchip]  && !params[:searchdnsname]
       @ips = Ipaddress.search(params[:searchip],nil)
-    elsif 
+    elsif
       @ips = Ipaddress.search(nil,params[:searchdnsname])
     else
       @ips = Ipaddress.search(params[:searchip],params[:searchdnsname])
