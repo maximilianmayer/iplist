@@ -2,17 +2,18 @@ class Ipaddress < ActiveRecord::Base
   def self.search(searchip, searchdnsname)
     if searchip && searchdnsname
       if searchip != "" && searchdnsname != ""
-        find(:all, :conditions => ['address LIKE ? AND hostname LIKE ?',"#{searchip}%", "#{searchdnsname}%"])
+        result = Ipaddress.find(:all, :conditions => ['address LIKE ? AND hostname LIKE ?',"#{searchip}%", "#{searchdnsname}%"])
       elsif searchip != ""
         if searchip.include? "%"
-          find(:all, :conditions => ['address LIKE ?', "#{searchip}%"])
+          result = Ipaddress.find(:all, :conditions => ['address LIKE ?', "#{searchip}%"])
         end
       elsif searchdnsname != ""
-          find(:all, :conditions => ['hostname LIKE ?', "#{searchdnsname}%"])
+          result = Ipaddress.find(:all, :conditions => ['hostname LIKE ?', "#{searchdnsname}%"])
       else
-        find(:all)
+        result = Ipaddress.find(:all)
       end
     end
+    return result
   end
 
   def self.showonly(iptype)
