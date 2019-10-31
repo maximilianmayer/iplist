@@ -1,0 +1,43 @@
+<% @title = "Network discovery for: #{params[:discovernet]}" %>
+<% @ip_list = Array.new %>
+<h2><%= @title %></h2>
+<%= render :partial => "navigation" %>
+<div class="options"></div>
+<div class="content2">
+  Network to scan: <%= params[:discovernet] -%><br />
+  Start IP: <%=  @scan_ip_start -%><br />
+  End IP:<%= @scan_ip_end -%><br />
+
+  <h3> scan resulsts</h3>
+  <table>
+    <thead>
+      <tr>
+      <th>scanned IP</th>
+      <th>forward DNS</th>
+      <th>reverse DNS</th>
+      </tr>
+    </thead>
+  <% @scan_host_start.upto(@scan_host_end) do |ip| %>
+    <% ipaddress = @network_base + ip.to_s %>
+    <% result_reverse = %x[nslookup #{ipaddress}].split("=").last.strip %>
+    <% if result_reverse.include? "NXDOMAIN" %>
+      <% result_reverse = "" %>
+    <% else %>
+      <% result_forward = %x[nslookup #{result_reverse} ].split(":").last.strip %>
+      <%# ipaddress + " =>" + result_reverse  + " => " + result_forward  %>
+      <% @ip_list.push(ipaddress) %>
+      <tr>
+        <td><%= ipaddress %></td>
+        <% if ipaddress.strip.eql? result_forward.strip %>
+          <td>
+        <% else %>
+          <td class="list_iptype_used">
+        <% end %>
+            <%= result_forward %></td>
+        <td><%= result_reverse %></td>
+      </tr>
+    <% end %>
+  <% end %>
+  </table>
+  IPs found: <%= @ip_list.count  %>
+</div>

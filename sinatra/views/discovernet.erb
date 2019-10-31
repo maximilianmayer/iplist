@@ -1,0 +1,6 @@
+<% form_tag '/ipaddresses/discover_net', :method => 'get' do %>
+  <div class="search_label">network</div>
+  <%= text_field_tag :discovernet, params[:discovernet] %>
+  <%= submit_tag "Discover", :address => nil %>
+
+<% end %>

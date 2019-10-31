@@ -1,0 +1,11 @@
+<% @title = "IP details "%>
+<h2>IP details for <%= @ips.address %> </h2>
+<div class=navigation"><%= bttn_back_to_index %><%= bttn_edit_ip %><%= nav_end %></div>
+  <div class="label">Hostname</div><div class="content"><%= h @ips.hostname %></div>
+  <div class="label">IP Address</div><div class="content"><%= h @ips.address %></div>
+  <div class="label">IP subnet</div><div class="content"><%= h @ips.subnet %></div>
+  <div class="label">type</div><div class="content"> <%= h @ips.iptype %></div>
+  <div class="label">comment</div><div class="content"><%= h @ips.comment %></div>
+  <div class="label">created at</div><div class="content"><%= h @ips.created_at %></div>
+  <div class="label">updated at</div><div class="content"><%= h @ips.updated_at %></div>
+<p><%= link_to "Übersicht", :action => "index" %></p>
