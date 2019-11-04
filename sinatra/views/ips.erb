@@ -46,9 +46,10 @@
 </table>
   <div style="width: 300px; float: right">
     <form method="POST" action="/ip/add">
-      <label style="margin-right:5px">Hostname</label><input type="text" name="hostname"><br />
-      <label style="margin-right:5px">IP</label><input type="text" name="ip"><br />
-      <label style="margin-right:5px">Comment</label><input type="text" name="comment"><br />
+      <label class="ip_input_label">IP</label><input type="text" name="ip"><br />
+      <label class="ip_input_label">Name</label><input class="ip_input" type="text" name="hostname" alt="Hostname or Network's name"><br />
+      <label class="ip_input_label">Location</label><input class="ip_input" type="text" name="location"><br />
+      <label class="ip_input_label">Comment</label><input class="ip_input" type="text" name="comment"><br />
       <input type="hidden" type="text" name="type" value="free"><br />
       <br />
     <br />
