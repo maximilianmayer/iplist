@@ -1,7 +1,8 @@
-<div class="search_label">ip</div><## text_field_tag :searchip, params[:searchip], :class => "small_input" %>
-<div class="search_label">hostname</div><## text_field_tag :searchdnsname, params[:searchdnsname], :class => "small_input" %>
-<## submit_tag "Search", :address => nil %>
+<form action="/search" method="GET">
+  <div class="search_label">ip</div><input type="text"><%# text_field_tag :searchip, params[:searchip], :class => "small_input" %>
+<div class="search_label">hostname</div><input type="text"><%# text_field_tag :searchdnsname, params[:searchdnsname], :class => "small_input" %>
+<%# submit_tag "Search", :address => nil %>
 <div class="notice">INFO: to use wildcards use '%', not '*'!</div>
-<br />
+</form>
 
 

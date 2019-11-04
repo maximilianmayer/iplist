@@ -1,0 +1,69 @@
+<h2>IPAM</h2>
+<%= navigation %>
+<div class="subnavigation">
+<div class="nav_button"><%# "create new ip", :action => "new" %></div>
+</div>
+<div class="options">
+  <div class="opt_element"><%= search %></div>
+<div class="opt_element"><%# discovernet %></div>
+<hr>
+</div>
+<div class="content2">
+<table class="list_table" style="width: 55% ;float: left">
+  <thead>
+  <tr>
+    <th>IP Address</th>
+    <th>IP Subnet</th>
+    <th>Hostname</th>
+    <th>Type</th>
+    <th>comment</th>
+    <th>created at</th>
+    <th>updated at</th>
+    <th>&nbsp;&nbsp;</th>
+  </tr>
+  </thead>
+  <% ips.each do |k, v| %>
+    <tr onclick="HideMenu('list_contextmenu');" oncontextmenu="ShowMenu('list_contextmenu',event); return false" >
+      <td><%= v['ip'] %> </td>
+      <td><%= v['netmask'] %> </td>
+      <td><%= v['hostname'] %> </td>
+      <% case v['iptype']
+         when "used" %>
+        <td class="list_iptype_used">
+    <%  when "reserved" %>
+        <td class="list_iptype_reserved">
+    <%  when "free" %>
+        <td class="list_iptype_free"> -->
+    <% else %>
+        <td>
+    <% end %><%= v['iptype'] %> </td>
+      <td><%# ip.comment %> </td>
+      <td><%# ip.created_at %> </td>
+      <td><%# ip.updated_at %> </td>
+      <td><a href="/ip/edit/<%= k %>">edit</a></td>
+    </tr>
+  <% end %>
+</table>
+  <div style="width: 300px; float: right">
+    <form method="POST" action="/ip/add">
+      <label style="margin-right:5px">Hostname</label><input type="text" name="hostname"><br />
+      <label style="margin-right:5px">IP</label><input type="text" name="ip"><br />
+      <label style="margin-right:5px">Comment</label><input type="text" name="comment"><br />
+      <input type="hidden" type="text" name="type" value="free"><br />
+      <br />
+    <br />
+    <button type="submit">add</button>
+  </form>
+  </div>
+</div>
+<!--<div style="display:none; " id="list_contextmenu">
+  <table border="0" cellpadding="0" cellspacing="0" style="broder: thin solid #FFFFFF; cursor: default; width: 100px;" >
+    <tr>
+      <td class="list_contextitem">view</td>
+    </tr>
+    <tr>
+      <td class="list_contextitem">edit</td>
+    </tr>
+  </table>
+</div>
+-->
