@@ -3,20 +3,25 @@ require 'sinatra'
 require 'sinatra/contrib'
 require 'sinatra/partial'
 require 'sinatra/reloader' if development?
+require "sinatra/config_file"
 require 'erb'
 require 'ipaddr'
 require 'resolv'
-require_relative 'db'
+require_relative 'lib/db'
 
-module IPlist
+module IPAM
   class Webapp < Sinatra::Base
     configure do
       register Sinatra::Partial
+      register Sinatra::ConfigFile
+
       enable :partial_underscores
       set :partial_template_engine, :erb
+      config_file './config.yml'
     end
 
-    db_ips = IPlist::DB.new 'ipaddresses'
+    puts settings
+    db_ips = IPlist::DB.new 'ipaddresses', settings['db']
 
 
     def scan_net()
@@ -43,11 +48,12 @@ module IPlist
     # end
 
     post '/ip/add' do
-      id = db_ips.get_last
+      id = db_ips.get_last_id
       ip = IPAddr.new(params['ip'])
       if ip.ipv4? && ip.prefix < 32
         ip.to_range.each do |i|
-          data = {'ip' => i, 'netmask' => i.prefix, 'hostname' => '', 'type' => 'free' ,'comment' =>'', 'network' => params['hostname'], 'location' => params['location'] }
+          data = []
+          data.push ({'ip' => i, 'netmask' => i.prefix, 'hostname' => '', 'type' => 'free' ,'comment' =>'', 'network' => params['hostname'], 'location' => params['location'] })
           db_ips.write(data)
         end
 

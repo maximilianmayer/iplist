@@ -1,10 +1,8 @@
 require 'pstore'
-
-module IPlist
-  class DB
-
+module IPAM
+  class Pstore < IPAM::DB
     def initialize (name)
-      @db = PStore.new ("#{name}.pstore")
+      @db = PStore.new ("db/#{name}.pstore")
     end
 
     # create db if it does not exist
@@ -14,6 +12,15 @@ module IPlist
         @db.transaction do
           @db[id] = data
           @db.commit
+        end
+      elsif data.is_a?(Array)
+        data.each do |d|
+          if d.is_a?(Hash)
+            @db.transaction do
+              @db[id] = data
+              @db.commit
+            end
+          end
         end
       end
     end
@@ -50,7 +57,7 @@ module IPlist
       @db.path
     end
 
-    def get_last
+    def get_last_id
       ids = get_ids
       # puts "size #{ids.size}"
       if ids.size == 0

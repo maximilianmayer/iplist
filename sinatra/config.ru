@@ -1,4 +1,4 @@
 require_relative 'app'
 
 #use Rack::Profiler if ENV['RACK_ENV'] == 'development'
-run IPlist::Webapp
+run IPAM::Webapp
