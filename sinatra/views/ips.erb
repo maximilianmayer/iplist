@@ -1,70 +1,101 @@
-<h2>IPAM</h2>
+
 <%= navigation %>
-<div class="subnavigation">
-<div class="nav_button"><%# "create new ip", :action => "new" %></div>
-</div>
-<div class="options">
-  <div class="opt_element"><%= search %></div>
-<div class="opt_element"><%# discovernet %></div>
-<hr>
-</div>
-<div class="content2">
-<table class="list_table" style="width: 55% ;float: left">
-  <thead>
-  <tr>
-    <th>IP Address</th>
-    <th>IP Subnet</th>
-    <th>Hostname</th>
-    <th>Type</th>
-    <th>comment</th>
-    <th>created at</th>
-    <th>updated at</th>
-    <th>&nbsp;&nbsp;</th>
-  </tr>
-  </thead>
-  <% ips.each do |k, v| %>
-    <tr onclick="HideMenu('list_contextmenu');" oncontextmenu="ShowMenu('list_contextmenu',event); return false" >
-      <td><%= v['ip'] %> </td>
-      <td><%= v['netmask'] %> </td>
-      <td><%= v['hostname'] %> </td>
-      <% case v['iptype']
-         when "used" %>
-        <td class="list_iptype_used">
-    <%  when "reserved" %>
-        <td class="list_iptype_reserved">
-    <%  when "free" %>
-        <td class="list_iptype_free"> -->
-    <% else %>
-        <td>
-    <% end %><%= v['iptype'] %> </td>
-      <td><%# ip.comment %> </td>
-      <td><%# ip.created_at %> </td>
-      <td><%# ip.updated_at %> </td>
-      <td><a href="/ip/edit/<%= k %>">edit</a></td>
-    </tr>
-  <% end %>
-</table>
-  <div style="width: 300px; float: right">
-    <form method="POST" action="/ip/add">
-      <label class="ip_input_label">IP</label><input type="text" name="ip"><br />
-      <label class="ip_input_label">Name</label><input class="ip_input" type="text" name="hostname" alt="Hostname or Network's name"><br />
-      <label class="ip_input_label">Location</label><input class="ip_input" type="text" name="location"><br />
-      <label class="ip_input_label">Comment</label><input class="ip_input" type="text" name="comment"><br />
-      <input type="hidden" type="text" name="type" value="free"><br />
-      <br />
-    <br />
-    <button type="submit">add</button>
-  </form>
+<%= search %>
+<script type="text/javascript" charset="utf-8">
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems, {});
+    console.log(instances);
+
+//console.log(a);
+});
+//var networkSelect = M.FormSelect.getInstance(document.querySelector("#net-select"));
+//networkSelect.addEventListener("change", function() {
+//
+//});
+
+console.log(document.querySelector("#net-select"));
+/*
+document.querySelector("#net-select").addEventListener("change",function() {
+    var networkSelect = M.FormSelect.getInstance(document.querySelector("#net-select"));
+   console.log(networkSelect.getSelectedValues());
+});
+*/
+function toggleAddIP() {
+  var x = document.getElementById('addIPForm');
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+};
+</script>
+<div class="container">
+  <div class="row">
+    <div class="input-field col s4">
+      <select id="net-select">
+        <option value="" disabled selected>Choose your network</option>
+        <% networks.each do |net| %>
+        <option value="<%= net['id'] %>"><%= net['name'] %></option>
+          <% end %>
+      </select>
+      <label>Network</label>
+    </div>
+    <div class="col s1">
+      <a class="waves-effect waves-light btn" onclick="toggleAddIP">add IP</a>
+    </div>
   </div>
-</div>
-<!--<div style="display:none; " id="list_contextmenu">
-  <table border="0" cellpadding="0" cellspacing="0" style="broder: thin solid #FFFFFF; cursor: default; width: 100px;" >
+  <table class="striped responsive-table" >
+    <thead>
     <tr>
-      <td class="list_contextitem">view</td>
+      <th>IP Address</th>
+      <th>IP Subnet</th>
+      <th>Hostname</th>
+      <th>Type</th>
+      <th>comment</th>
+      <th>created at</th>
+      <th>updated at</th>
+      <th>&nbsp;&nbsp;</th>
     </tr>
-    <tr>
-      <td class="list_contextitem">edit</td>
-    </tr>
+    </thead>
+    <% ips.each do |k, v| %>
+      <tr >
+        <td><%= v['ip'] %> </td>
+        <td><%= v['netmask'] %> </td>
+        <td><%= v['hostname'] %> </td>
+        <% case v['iptype']
+           when "used" %>
+          <td class="list_iptype_used">
+      <%  when "reserved" %>
+          <td class="list_iptype_reserved">
+      <%  when "free" %>
+          <td class="list_iptype_free">
+      <% else %>
+          <td>
+      <% end %><%= v['iptype'] %> </td>
+        <td><%# ip.comment %> </td>
+        <td><%# ip.created_at %> </td>
+        <td><%# ip.updated_at %> </td>
+        <td><a href="/ip/edit/<%= k %>">edit</a></td>
+      </tr>
+    <% end %>
   </table>
 </div>
--->
+
+<div id="addIPForm" style="width: 300px;display: none">
+  <form method="POST" action="/ip/add">
+    <label class="ip_input_label">IP</label><input type="text" name="ip"><br />
+    <label class="ip_input_label">Name</label><input class="ip_input" type="text" name="hostname" alt="Hostname or Network's name"><br />
+    <label class="ip_input_label">Location</label><input class="ip_input" type="text" name="location"><br />
+    <label class="ip_input_label">Comment</label><input class="ip_input" type="text" name="comment"><br />
+    <input id="addIPNetwork" type="hidden" name="network" value="">
+    <input id="addIPUsage" type="hidden" name="type" value="free">
+    <br />
+  <br />
+  <button type="submit">add</button>
+</form>
+</div>
+
+
+
+

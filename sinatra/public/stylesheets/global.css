@@ -98,10 +98,6 @@ table td {
 }
 
 
-.search_label {
-  width: 80px;
-}
-
 .notice {
   font-size: 9px;
   color: red;
@@ -124,6 +120,16 @@ table td {
 
 .small_input {
   width: 100px;
+}
+
+.ip_input_label {
+  clear: both;
+  margin-right:5px;
+  text-align: left;
+}
+
+.ip_input {
+  float: right;
 }
 
 #list_contextmenu {

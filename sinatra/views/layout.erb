@@ -1,29 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="stylesheets/global.css">
-<script language="javascript" type="text/javascript">
-        function ShowMenu(control, e) {
-            var posx = e.clientX +window.pageXOffset +'px'; //Left Position of Mouse Pointer
-            var posy = e.clientY + window.pageYOffset + 'px'; //Top Position of Mouse Pointer
-            document.getElementById(control).style.position = 'absolute';
-            document.getElementById(control).style.display = 'inline';
-            document.getElementById(control).style.left = posx;
-            document.getElementById(control).style.top = posy;
-        }
-        function HideMenu(control) {
+<!--  former CSS file, definitions should be replaced by materializecss features
+<link rel="stylesheet" href="stylesheets/global.css"> -->
 
-            document.getElementById(control).style.display = 'none';
-        }
-</script>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="stylesheets/materialize.min.css">
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
   <!-- <body oncontextmenu="return false"> -->
-  <div id="container">
-    <div id="header">
-    </div>
-    <div id="content">
+
       <%= yield %>
-    </div>
-  </div>
+  <!-- Compiled and minified JavaScript -->
+  <script src="js/materialize.min.js"></script>
 </body>

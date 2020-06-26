@@ -1,20 +1,27 @@
+require_relative 'db/sqlite'
+require_relative 'db/pstore'
+
 module IPAM
   class DB
-    # @param [Object] name
-    # @param [Object] config
-    def initialize (name,config)
-      @driver = config['driver']
+
+    attr_reader :db
+    def initialize (name='ipam',config={'driver' => 'sqlite'})
       @dbname = name
+      @driver = config['driver']
+      select_db
     end
 
-    case @driver
-    when 'sqlite'
-      @db = IPAM::DB::Sqlite.new(dbname)
-    when 'pstore'
-      @db = IPAM::DB::Pstore.new(dbname)
-    else
-      #raise StandardError.new "Unsupported DB driver."
-      puts @driver
+    def select_db
+      case @driver
+      when 'sqlite'
+        @db = IPAM::Sqlite.new(@dbname)
+      when 'pstore'
+        @db = DB::Pstore.new(@dbname)
+      else
+        #raise StandardError.new "Unsupported DB driver."
+        puts @driver
+      end
     end
+
   end
 end

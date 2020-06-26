@@ -1,6 +1,7 @@
 require 'pstore'
+require_relative '../db'
 module IPAM
-  class Pstore < IPAM::DB
+  class Pstore
     def initialize (name)
       @db = PStore.new ("db/#{name}.pstore")
     end

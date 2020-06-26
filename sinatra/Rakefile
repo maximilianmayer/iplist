@@ -1,1 +1,8 @@
+libdir = File.dirname(__FILE__)
+require_relative 'lib/db'
 
+desc "initialize database"
+task :sqlite_db_init do
+  a = IPAM::Sqlite.new 'ipam'
+  a.init_db
+end
