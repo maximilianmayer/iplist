@@ -1,8 +1,12 @@
-<form action="/search" method="GET">
-  <div class="search_label">ip</div><input type="text"><%# text_field_tag :searchip, params[:searchip], :class => "small_input" %>
-<div class="search_label">hostname</div><input type="text"><%# text_field_tag :searchdnsname, params[:searchdnsname], :class => "small_input" %>
-<%# submit_tag "Search", :address => nil %>
-<div class="notice">INFO: to use wildcards use '%', not '*'!</div>
-</form>
-
-
+<div class="row">
+  <form action="/search" method="GET" class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="IP address, hostname, network, location" id="search" type="text">
+        </div>
+        <button class="btn waves-effect waves-light" type="submit" name="action">search
+        <i class="material-icons right">search</i>
+        </button>
+      </div>
+  </form>
+</div>
